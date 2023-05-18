@@ -14,7 +14,6 @@ function mostrar_login(){
     
     div_login.style.display="block";
     div_login.className += " animate__animated animate__bounceInLeft";
-
     div_register.style.display="none" ;
 
     
