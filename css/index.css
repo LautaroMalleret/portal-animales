@@ -1,0 +1,19 @@
+:root{
+    --main-color: #2ecc71;
+    --secondary-color: #3498db;
+    --terciary-color: #f1c40f;
+}
+
+body{
+    background-color: var(--main-color);
+    padding: 5% 10%;
+}
+
+.card{
+    background-color: var(--secondary-color);
+}
+
+
+#form-register{
+    display: none;
+}
