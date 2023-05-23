@@ -1,0 +1,27 @@
+.navbar{
+    background-color: var(--main-color);
+}
+
+main{
+    background-color: var(--secondary-color);
+}
+
+.btn_seccion{
+    background-color: var(--main-color);
+}
+.btn_seccion:hover{
+    background-color: var(--main-color-hover);
+}
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card{
+    background-color: var(--main-color);
+}
+.card:hover{
+    background-color: var(--main-color-hover);
+    cursor: pointer;
+}
