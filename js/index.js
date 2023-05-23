@@ -17,4 +17,24 @@ function mostrar_login(){
     div_register.style.display="none" ;
 
     
-        }    
+    }    
+
+function mostrar_organizaciones(){
+    div_organizaciones = document.getElementById('organizaciones');
+    div_avisos = document.getElementById('avisos');
+
+    div_organizaciones.style.display="block";
+    div_avisos.style.display="none";
+
+    
+    }
+
+    function mostrar_avisos(){
+        div_organizaciones = document.getElementById('organizaciones');
+        div_avisos = document.getElementById('avisos');
+    
+        div_avisos.style.display="block";
+        div_organizaciones.style.display="none";
+    
+        
+        }
