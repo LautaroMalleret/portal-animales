@@ -1,3 +1,4 @@
+
 function mostrar_registro() {
   div_register = document.getElementById('form-register');
   div_login = document.getElementById('form-login');
@@ -22,6 +23,7 @@ function mostrar_login() {
 function mostrar_apartado_organizaciones() {
   div_organizaciones = document.getElementById('organizaciones');
   div_avisos = document.getElementById('avisos');
+
 
   div_organizaciones.style.display = "block";
   div_avisos.style.display = "none";

@@ -3,8 +3,6 @@ class Organizacion {
         this._nombre = nombre;
         this._tipo = tipo;
         this.direccion = direccion;
-        // this._coordenadaX = coordenadaX;
-        // this._coordenadaY = coordenadaY;
         this.patrocinador = patrocinador;
         this.servicio = "";
         this.actividad = "";
@@ -59,17 +57,14 @@ class Organizacion {
         this._coordenadaY = nuevaCoordenadaY;
     }
 
-    match(actividad, servicio) { //verifica si la actividad o el servicio por parametro coincide con los de la org
-        return this.actividad == actividad || this.servicio == servicio;
-    }
+
+}
+
+function match(org, actividad, servicio) { //verifica si la actividad o el servicio por parametro coincide con los de la org
+    return org.actividad == actividad || org.servicio == servicio;
 }
 
 class Direccion {
-    // constructor(nombre) {
-    //   this.nombre = nombre;
-    //   this.coordenadaX = 0;
-    //   this.coordenadaY = 0;
-    // }
     constructor(nombre, coordx, coordy) {
         this.nombre = nombre;
         this.coordenadaX = coordx;
@@ -85,12 +80,12 @@ class Direccion {
 }
 
 
+function crearOrganizacionesDePrueba(){
 // CREO LAS ORGANIZACIONES REGISTRADAS PARA MOSTRAR EN EL FRONT 
 var nuevaOrganizacion1 = new Organizacion("Somos Mascotas", "Tienda de animales", new Direccion("a", -34.53590200275432, -58.70621350089678), true);
 var nuevaOrganizacion2 = new Organizacion("Fundacion Viva La Vida Por El Bienestar Animal", "Protectora de animales", new Direccion("b", -34.5666871221488, -58.63911818036918), false);
 var nuevaOrganizacion3 = new Organizacion("Zoonosis de José C. Paz", "Hospital veterinario", new Direccion("c", -34.512869013223266, -58.75508666190319), true);
 var nuevaOrganizacion4 = new Organizacion("Organización Mi Fiel Amigo", "Refugio para animales", new Direccion("d", -34.60994654797199, -58.992593545969065), false);
-//creo lista de todas las organizaciones
 
 nuevaOrganizacion1.setActividad("rescate");
 nuevaOrganizacion2.setActividad("transito");
@@ -103,12 +98,12 @@ nuevaOrganizacion2.setServicio("peluqueria");
 nuevaOrganizacion3.setServicio("guarderia");
 nuevaOrganizacion4.setServicio("paseo");
 
-
 var _ORGANIZACIONES = [];
 
 _ORGANIZACIONES.push(nuevaOrganizacion1, nuevaOrganizacion2, nuevaOrganizacion3, nuevaOrganizacion4);
-
-localStorage.setItem('_ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
+//GUARDO LA LISTA DE ORGANIZACIONES EN EL LOCAL STORAGE PARA PODER ACTUALIZAR LA PAG 
+localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
+}
 
 function filtrar() {
 
@@ -119,8 +114,8 @@ function filtrar() {
     else {
 
         var organizacionesFiltradas = [];    //creo lista de organizaciones que cumplen el filtro
-        _ORGANIZACIONES.forEach(org => {
-            if (org.match(select_actividad, select_servicio)) {   //si coincide la actividad o el servicio
+        traerOrganizacionesDelStorage().forEach(org => {
+            if (match(org, select_actividad, select_servicio)) {   //si coincide la actividad o el servicio
                 organizacionesFiltradas.push(org);              //agrego a la lista
             }
         })
@@ -128,6 +123,7 @@ function filtrar() {
     }
 }
 
+//RECIBE LAS ORGNIZACIONES Y LAS GRAFICA EN EL FRONT, ELIMINANDO LAS ORGANIZACIONES QUE SE PRESENTABAN ANTES
 function mostrar_organizaciones(listaDeOrganizaciones) {
     limpiarLista(); //quita las organizacion actuales del front
     listaDeOrganizaciones.forEach(org => {
@@ -158,6 +154,7 @@ function mostrar_organizacion_en_el_front(org) {
     div_organizaciones.appendChild(button);
 }
 
+//ELIMINA LAS ORGANIZACIONES QUE SE MUESTRAN EN EL FRONT
 function limpiarLista() {    //elimino las organizacion que se observan en el front para que no se vean duplicadas
     const div_organizaciones = document.getElementById("listaDeOrganizaciones");
     while (div_organizaciones.firstChild) {
@@ -165,9 +162,15 @@ function limpiarLista() {    //elimino las organizacion que se observan en el fr
     }
 }
 
-function mostrar_todas_las_organizaciones() { mostrar_organizaciones(_ORGANIZACIONES); }
+//MUESTRA TODAS LAS ORGANIZACIONES
+function mostrar_todas_las_organizaciones() { mostrar_organizaciones(traerOrganizacionesDelStorage()); }
 
+//SOLICITA AL NAVEGADOR LA LISTA DE ORGANIZACIONES QUE ALMACENA
+function traerOrganizacionesDelStorage(){
+    return JSON.parse(localStorage.getItem("ORGANIZACIONES"));
+}
 
+//REGUSTRA UNA NUEVA ORGANIZACIONES
 function registrar_organizacion() {
     var direccion = document.getElementById('select_direccion').value;
     if (direccion == null || direccion.length === 0) {
@@ -183,21 +186,23 @@ function registrar_organizacion() {
         var actividades = document.getElementById('actividades').value;
 
         var coordenadas = obtenerCoordenadas(direccion);
-        console.log(coordenadas);
+        console.log("coordenada x: " + coordenadas.y);
+        console.log("coordenada y: " + coordenadas. x);
 
         // Crear una instancia de la clase Organizacion con los valores ingresados
-        var nueva_organizacion = new Organizacion(nombre, descripcion, new Direccion(direccion, coordenadas.x, coordenadas.y), false);
+        var nueva_organizacion = new Organizacion(nombre, descripcion, new Direccion(direccion, coordenadas.y, coordenadas.x), false);
+        nueva_organizacion.setActividad(actividades);
         // console.log(nueva_organizacion);
         //agrego la nueva org al resto
-        var _ORGANIZACIONES = JSON.parse(localStorage.getItem('_ORGANIZACIONES')) || [];
 
+
+        var _ORGANIZACIONES = JSON.parse(localStorage.getItem('ORGANIZACIONES'));
 
         //SOLUCIONAR GUARDAR UNA ORG CUANDO SE CREA NUEVA PQ SE BORRA CUANDO ACTUALIZO PAG
 
-
         _ORGANIZACIONES.push(nueva_organizacion);
         // console.log(_ORGANIZACIONES);
-        localStorage.setItem('_ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
+        localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
 
     }
 }

@@ -2,16 +2,17 @@ var actualPoint;
 // Inicializar el mapa
 var mymap = L.map("mapid").setView(
   [-34.522898465065765, -58.70039177232011],
-  12
+  11
 );
+mymap.invalidateSize();
 
-// Añadir el mapa base (opcional)
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
     'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
 }).addTo(mymap);
 mymap.invalidateSize();
 
+//ICONO PARA ORGANIZACIONES DESTACADAS
 var goldIcon = new L.Icon({
 	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
 	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -20,7 +21,7 @@ var goldIcon = new L.Icon({
 	popupAnchor: [1, -34],
 	shadowSize: [41, 41]
 });
-
+//ICONO PARA ORGANIZACIONES NO DESTACADAS
 var greyIcon = new L.Icon({
 	iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png',
 	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -30,17 +31,13 @@ var greyIcon = new L.Icon({
 	shadowSize: [41, 41]
 });
 
+//AGREGA UN MARCADOR AL MAPA
 function agregarMarcador(coordenadaX, coordenadaY, patrocinador){
-
   let marker = L.marker([coordenadaX, coordenadaY],
     {icon: (patrocinador? goldIcon : greyIcon)} ).addTo(mymap);
 }
 
-
-
-// Añadir un marcador al mapa (opcional)
-//L.marker(actualPoint).addTo(mymap).bindPopup("¡Hola, mundo!").openPopup();
-
+//SE DESPLAZA CUANDO SE SELECCIONA UNA ORGANIZACION
 function cambiarUbicacion(coords, title, event) {
   if (actualPoint) {
     mymap.removeLayer(actualPoint);
@@ -53,3 +50,4 @@ function cambiarUbicacion(coords, title, event) {
     .bindPopup(title.innerHTML)
     .openPopup();
 }
+
