@@ -1,0 +1,144 @@
+{
+  "avisos": [
+    {
+      "tipo": "encontrado",
+      "datosContacto": "Teléfono: 123456789",
+      "fechaPublicacion": "2023-06-01",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Max",
+        "raza": "Labrador Retriever",
+        "edad": 3,
+        "caracteristicas": "Juguetón y amigable",
+        "tipo": "perro",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (1).jpg"
+      },
+      "direccion": "Calle Principal 123",
+      "fechaSuceso": "2023-05-28"
+    },
+    {
+      "tipo": "encontrado",
+      "datosContacto": "Teléfono: 987654321",
+      "fechaPublicacion": "2023-06-02",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Luna",
+        "raza": "Golden Retriever",
+        "edad": 2,
+        "caracteristicas": "Inteligente y cariñosa",
+        "tipo": "perro",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (2).jpg"
+      },
+      "direccion": "Avenida Central 456",
+      "fechaSuceso": "2023-05-30"
+    },
+    {
+      "tipo": "perdido",
+      "datosContacto": "Teléfono: 555555555",
+      "fechaPublicacion": "2023-06-03",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Simba",
+        "raza": "Persa",
+        "edad": 1,
+        "caracteristicas": "Pelaje largo y suave",
+        "tipo": "gato",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (3).jpg"
+      },
+      "direccion": "Plaza Central 789",
+      "fechaSuceso": "2023-05-31"
+    },
+    {
+      "tipo": "adopcion",
+      "datosContacto": "Teléfono: 111111111",
+      "fechaPublicacion": "2023-06-01",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Nala",
+        "raza": "Siamés",
+        "edad": 2,
+        "caracteristicas": "Ojos azules y elegante",
+        "tipo": "gato",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (4).jpg"
+      },
+      "detalles": "Vacunada y esterilizada"
+    },
+    {
+      "tipo": "adopcion",
+      "datosContacto": "Teléfono: 222222222",
+      "fechaPublicacion": "2023-06-02",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Bunny",
+        "raza": "Holandés enano",
+        "edad": 0.5,
+        "caracteristicas": "Pequeño y juguetón",
+        "tipo": "conejo",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (5).jpg"
+      },
+      "detalles": "Ideal para familias con niños"
+    },
+    {
+      "tipo": "perdido",
+      "datosContacto": "Teléfono: 333333333",
+      "fechaPublicacion": "2023-06-03",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Cotton",
+        "raza": "Rex",
+        "edad": 1,
+        "caracteristicas": "Pelaje suave y esponjoso",
+        "tipo": "conejo",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (6).jpg"
+      },
+      "direccion": "Parque del Este 10",
+      "fechaSuceso": "2023-06-01"
+    },
+    {
+      "tipo": "adopcion",
+      "datosContacto": "Teléfono: 444444444",
+      "fechaPublicacion": "2023-06-01",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Spirit",
+        "raza": "Árabe",
+        "edad": 5,
+        "caracteristicas": "Elegante y veloz",
+        "tipo": "caballo",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (7).jpg"
+      },
+      "detalles": "Requiere espacio amplio para correr"
+    },
+    {
+      "tipo": "encontrado",
+      "datosContacto": "Teléfono: 555555555",
+      "fechaPublicacion": "2023-06-02",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Shelly",
+        "raza": "Tortuga de orejas rojas",
+        "edad": 10,
+        "caracteristicas": "Caparazón rojizo y nadadora",
+        "tipo": "tortuga",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (8).jpg"
+      },
+      "direccion": "Calle Secundaria 20",
+      "fechaSuceso": "2023-05-30"
+    },
+    {
+      "tipo": "adopcion",
+      "datosContacto": "Teléfono: 666666666",
+      "fechaPublicacion": "2023-06-03",
+      "estado": "activo",
+      "perfilMascota": {
+        "nombre": "Rocky",
+        "raza": "Bulldog Francés",
+        "edad": 4,
+        "caracteristicas": "Compacto y amigable",
+        "tipo": "perro",
+        "URLfoto": "../../resources/imagenes mascotas pruebas/images (9).jpg"
+      },
+      "detalles": "Energético y sociable"
+    }
+  ]
+}

@@ -1,5 +1,11 @@
 var actualPoint;
 // Inicializar el mapa
+// function crearMapa(){
+// var mapa = document.getElementById("mapida");
+// mapa.id='mapid';
+// }
+
+
 var mymap = L.map("mapid").setView(
   [-34.522898465065765, -58.70039177232011],
   11

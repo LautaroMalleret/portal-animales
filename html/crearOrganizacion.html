@@ -86,9 +86,11 @@
 <!-- NORMALIZAR DIRECCIONES -->
       <div class="form-group">
         <label for="direccion" class="d-block">Dirección:</label>
-        <input type="text" class="form-control w-75 d-inline" id="direccion" required>
-        <button type="button" onclick="solicitud()" data-toggle="tooltip" title="Es necesario verificar que la direccion ingresada es correcta!">Buscar Direccion</button>
-          <select class="form-control" id="select_direccion" required data-toggle="tooltip" title="Seleccione una direccion"></select>
+        <input type="text" class="form-control w-50 d-inline" id="direccion" required>
+
+        <button type="button" onclick="solicitud()" class=" my-1" data-toggle="tooltip" title="Es necesario verificar que la direccion ingresada es correcta!">Buscar Direccion</button>
+          <!-- <select class="form-control" id="select_direccion" required data-toggle="tooltip" title="Seleccione una direccion"></select> -->
+          <ul id="select_direccion"></ul>
       </div>
 
       <div class="form-group">

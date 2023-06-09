@@ -60,9 +60,7 @@ class Organizacion {
 
 }
 
-function match(org, actividad, servicio) { //verifica si la actividad o el servicio por parametro coincide con los de la org
-    return org.actividad == actividad || org.servicio == servicio;
-}
+
 
 class Direccion {
     constructor(nombre, coordx, coordy) {
@@ -109,13 +107,14 @@ function filtrar() {
 
     const select_actividad = document.getElementById("select-actividad").value;
     const select_servicio = document.getElementById("select-servicio").value;
+    const input_nombre_org = document.getElementById("campoBusqueda").value.toLowerCase();
     //si no se seleciono ningun filtro muestro todas las organizaciones
-    if (select_actividad == "todos" && select_servicio == "todos") { mostrar_todas_las_organizaciones(); }
+    if (select_actividad == "todos" && select_servicio == "todos" && input_nombre_org.length==0) { mostrar_todas_las_organizaciones(); }
     else {
 
         var organizacionesFiltradas = [];    //creo lista de organizaciones que cumplen el filtro
         traerOrganizacionesDelStorage().forEach(org => {
-            if (match(org, select_actividad, select_servicio)) {   //si coincide la actividad o el servicio
+            if (match(org, select_actividad, select_servicio, input_nombre_org)) {   //si coincide la actividad o el servicio
                 organizacionesFiltradas.push(org);              //agrego a la lista
             }
         })
@@ -123,12 +122,39 @@ function filtrar() {
     }
 }
 
+function match(org, actividad, servicio, input_nombre) { //verifica si la actividad o el servicio por parametro coincide con los de la org
+    // var nombreOrg = org.;
+    // console.log(nombreOrg)
+   
+    igualActividad = org.actividad == actividad;
+    igualServicio = org.servicio == servicio;
+    if (input_nombre.length == 0){
+        return igualActividad || igualServicio;
+    }
+    else{
+        var nombreOrg = org._nombre.toLowerCase();
+
+        return igualActividad || igualServicio || nombreOrg.includes(input_nombre);
+    }
+
+    // var nombreOrg = org._nombre.toLowerCase();
+    // return org.actividad == actividad || org.servicio == servicio || nombreOrg.includes(input_nombre) ;
+}
+
 //RECIBE LAS ORGNIZACIONES Y LAS GRAFICA EN EL FRONT, ELIMINANDO LAS ORGANIZACIONES QUE SE PRESENTABAN ANTES
 function mostrar_organizaciones(listaDeOrganizaciones) {
     limpiarLista(); //quita las organizacion actuales del front
-    listaDeOrganizaciones.forEach(org => {
-        mostrar_organizacion_en_el_front(org);
-    })
+    if(listaDeOrganizaciones.length>0){
+        listaDeOrganizaciones.forEach(org => {
+            mostrar_organizacion_en_el_front(org);
+        })
+    }
+    else{
+        const div_organizaciones = document.getElementById("listaDeOrganizaciones");
+        let mensaje = document.createElement('p');
+        mensaje.append("No se encontraron organizaciones con el filtro solicitado !");
+        div_organizaciones.appendChild(mensaje);
+    }
 }
 
 //Recibe una organizacion por parametro y la grafica en el front, en la lista de org y el mapa
@@ -172,8 +198,8 @@ function traerOrganizacionesDelStorage(){
 
 //REGUSTRA UNA NUEVA ORGANIZACIONES
 function registrar_organizacion() {
-    var direccion = document.getElementById('select_direccion').value;
-    if (direccion == null || direccion.length === 0) {
+    var select_direccion = document.getElementById('select_direccion');
+    if (select_direccion.children.length != 2) {
         alert("faltan completar campos")
     }
     else {
@@ -185,6 +211,7 @@ function registrar_organizacion() {
         // var telefono = document.getElementById('telefono').value;
         var actividades = document.getElementById('actividades').value;
 
+        var direccion = document.getElementById('direccion-normalizada').textContent;
         var coordenadas = obtenerCoordenadas(direccion);
         console.log("coordenada x: " + coordenadas.y);
         console.log("coordenada y: " + coordenadas. x);
@@ -203,6 +230,8 @@ function registrar_organizacion() {
         _ORGANIZACIONES.push(nueva_organizacion);
         // console.log(_ORGANIZACIONES);
         localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
+
+        alert("se creo correctamente la organizacion!")
 
     }
 }
