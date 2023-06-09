@@ -1,4 +1,3 @@
-html{padding: 0;}
 .navbar{
     background-color: var(--main-color);
 }
@@ -26,11 +25,6 @@ main{
     background-color: var(--main-color-hover);
     cursor: pointer;
 }
-
-/* .oculto{
-    position: absolute;
-    visibility: hidden;
-} */
 
 footer{
     text-align: center;

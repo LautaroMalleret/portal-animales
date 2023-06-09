@@ -1,5 +1,3 @@
-
-
 body{
     background-color: var(--main-color);
     padding: 5% 10%;
@@ -8,7 +6,6 @@ body{
 .card{
     background-color: var(--secondary-color);
 }
-
 
 #form-register{
     display: none;

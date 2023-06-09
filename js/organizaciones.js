@@ -11,13 +11,9 @@ class Organizacion {
     setServicio(servicio) {
         this.servicio = servicio;
     }
-
-
     setActividad(actividad) {
         this.actividad = actividad;
     }
-
-
     getPatrocinador() {
         return this.patrocinador;
     }
@@ -60,8 +56,6 @@ class Organizacion {
 
 }
 
-
-
 class Direccion {
     constructor(nombre, coordx, coordy) {
         this.nombre = nombre;
@@ -77,41 +71,44 @@ class Direccion {
     }
 }
 
+function crearOrganizacionesDePrueba() {
 
-function crearOrganizacionesDePrueba(){
-// CREO LAS ORGANIZACIONES REGISTRADAS PARA MOSTRAR EN EL FRONT 
-var nuevaOrganizacion1 = new Organizacion("Somos Mascotas", "Tienda de animales", new Direccion("a", -34.53590200275432, -58.70621350089678), true);
-var nuevaOrganizacion2 = new Organizacion("Fundacion Viva La Vida Por El Bienestar Animal", "Protectora de animales", new Direccion("b", -34.5666871221488, -58.63911818036918), false);
-var nuevaOrganizacion3 = new Organizacion("Zoonosis de José C. Paz", "Hospital veterinario", new Direccion("c", -34.512869013223266, -58.75508666190319), true);
-var nuevaOrganizacion4 = new Organizacion("Organización Mi Fiel Amigo", "Refugio para animales", new Direccion("d", -34.60994654797199, -58.992593545969065), false);
+    var organizaciones_del_localstore = JSON.parse(localStorage.getItem('ORGANIZACIONES'));
+    if (organizaciones_del_localstore.length = 0 || organizaciones_del_localstore == null) { //verifico que este vacio el localstorage para no borrar la info
 
-nuevaOrganizacion1.setActividad("rescate");
-nuevaOrganizacion2.setActividad("transito");
-nuevaOrganizacion3.setActividad("rescate");
-nuevaOrganizacion4.setActividad("cuidados");
+        // CREO LAS ORGANIZACIONES REGISTRADAS PARA MOSTRAR EN EL FRONT 
 
+        var nuevaOrganizacion1 = new Organizacion("Somos Mascotas", "Tienda de animales", new Direccion("a", -34.53590200275432, -58.70621350089678), true);
+        var nuevaOrganizacion2 = new Organizacion("Fundacion Viva La Vida Por El Bienestar Animal", "Protectora de animales", new Direccion("b", -34.5666871221488, -58.63911818036918), false);
+        var nuevaOrganizacion3 = new Organizacion("Zoonosis de José C. Paz", "Hospital veterinario", new Direccion("c", -34.512869013223266, -58.75508666190319), true);
+        var nuevaOrganizacion4 = new Organizacion("Organización Mi Fiel Amigo", "Refugio para animales", new Direccion("d", -34.60994654797199, -58.992593545969065), false);
 
-nuevaOrganizacion1.setServicio("peluqueria");
-nuevaOrganizacion2.setServicio("peluqueria");
-nuevaOrganizacion3.setServicio("guarderia");
-nuevaOrganizacion4.setServicio("paseo");
+        nuevaOrganizacion1.setActividad("rescate");
+        nuevaOrganizacion2.setActividad("transito");
+        nuevaOrganizacion3.setActividad("rescate");
+        nuevaOrganizacion4.setActividad("cuidados");
 
-var _ORGANIZACIONES = [];
+        nuevaOrganizacion1.setServicio("peluqueria");
+        nuevaOrganizacion2.setServicio("peluqueria");
+        nuevaOrganizacion3.setServicio("guarderia");
+        nuevaOrganizacion4.setServicio("paseo");
 
-_ORGANIZACIONES.push(nuevaOrganizacion1, nuevaOrganizacion2, nuevaOrganizacion3, nuevaOrganizacion4);
-//GUARDO LA LISTA DE ORGANIZACIONES EN EL LOCAL STORAGE PARA PODER ACTUALIZAR LA PAG 
-localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
+        var _ORGANIZACIONES = [];
+        _ORGANIZACIONES.push(nuevaOrganizacion1, nuevaOrganizacion2, nuevaOrganizacion3, nuevaOrganizacion4);
+
+        //GUARDO LA LISTA DE ORGANIZACIONES EN EL LOCAL STORAGE PARA PODER ACTUALIZAR LA PAG 
+        localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
+    }
 }
 
+//FILTRO ORGANIZACIONES
 function filtrar() {
-
     const select_actividad = document.getElementById("select-actividad").value;
     const select_servicio = document.getElementById("select-servicio").value;
     const input_nombre_org = document.getElementById("campoBusqueda").value.toLowerCase();
     //si no se seleciono ningun filtro muestro todas las organizaciones
-    if (select_actividad == "todos" && select_servicio == "todos" && input_nombre_org.length==0) { mostrar_todas_las_organizaciones(); }
+    if (select_actividad == "todos" && select_servicio == "todos" && input_nombre_org.length == 0) { mostrar_todas_las_organizaciones(); }
     else {
-
         var organizacionesFiltradas = [];    //creo lista de organizaciones que cumplen el filtro
         traerOrganizacionesDelStorage().forEach(org => {
             if (match(org, select_actividad, select_servicio, input_nombre_org)) {   //si coincide la actividad o el servicio
@@ -122,34 +119,29 @@ function filtrar() {
     }
 }
 
-function match(org, actividad, servicio, input_nombre) { //verifica si la actividad o el servicio por parametro coincide con los de la org
-    // var nombreOrg = org.;
-    // console.log(nombreOrg)
-   
+//verifica si la actividad, el servicio o el input por parametro coincide con los de la org
+function match(org, actividad, servicio, input_nombre) {
     igualActividad = org.actividad == actividad;
     igualServicio = org.servicio == servicio;
-    if (input_nombre.length == 0){
+
+    if (input_nombre.length == 0) {
         return igualActividad || igualServicio;
     }
-    else{
+    else {
         var nombreOrg = org._nombre.toLowerCase();
-
         return igualActividad || igualServicio || nombreOrg.includes(input_nombre);
     }
-
-    // var nombreOrg = org._nombre.toLowerCase();
-    // return org.actividad == actividad || org.servicio == servicio || nombreOrg.includes(input_nombre) ;
 }
 
 //RECIBE LAS ORGNIZACIONES Y LAS GRAFICA EN EL FRONT, ELIMINANDO LAS ORGANIZACIONES QUE SE PRESENTABAN ANTES
 function mostrar_organizaciones(listaDeOrganizaciones) {
     limpiarLista(); //quita las organizacion actuales del front
-    if(listaDeOrganizaciones.length>0){
+    if (listaDeOrganizaciones.length > 0) {
         listaDeOrganizaciones.forEach(org => {
             mostrar_organizacion_en_el_front(org);
         })
     }
-    else{
+    else {
         const div_organizaciones = document.getElementById("listaDeOrganizaciones");
         let mensaje = document.createElement('p');
         mensaje.append("No se encontraron organizaciones con el filtro solicitado !");
@@ -192,7 +184,7 @@ function limpiarLista() {    //elimino las organizacion que se observan en el fr
 function mostrar_todas_las_organizaciones() { mostrar_organizaciones(traerOrganizacionesDelStorage()); }
 
 //SOLICITA AL NAVEGADOR LA LISTA DE ORGANIZACIONES QUE ALMACENA
-function traerOrganizacionesDelStorage(){
+function traerOrganizacionesDelStorage() {
     return JSON.parse(localStorage.getItem("ORGANIZACIONES"));
 }
 
@@ -206,35 +198,19 @@ function registrar_organizacion() {
         // Obtener los valores ingresados por el usuario desde el formulario
         var nombre = document.getElementById('nombre').value;
         var descripcion = document.getElementById('descripcion').value;
-
-        // var horarios = document.getElementById('horarios').value;
-        // var telefono = document.getElementById('telefono').value;
         var actividades = document.getElementById('actividades').value;
 
         var direccion = document.getElementById('direccion-normalizada').textContent;
         var coordenadas = obtenerCoordenadas(direccion);
-        console.log("coordenada x: " + coordenadas.y);
-        console.log("coordenada y: " + coordenadas. x);
 
         // Crear una instancia de la clase Organizacion con los valores ingresados
         var nueva_organizacion = new Organizacion(nombre, descripcion, new Direccion(direccion, coordenadas.y, coordenadas.x), false);
         nueva_organizacion.setActividad(actividades);
-        // console.log(nueva_organizacion);
+       
         //agrego la nueva org al resto
-
-
-        var _ORGANIZACIONES = JSON.parse(localStorage.getItem('ORGANIZACIONES'));
-
-        //SOLUCIONAR GUARDAR UNA ORG CUANDO SE CREA NUEVA PQ SE BORRA CUANDO ACTUALIZO PAG
-
-        _ORGANIZACIONES.push(nueva_organizacion);
-        // console.log(_ORGANIZACIONES);
-        localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORGANIZACIONES));
-
+        var _ORG = JSON.parse(localStorage.getItem('ORGANIZACIONES'));
+        _ORG.push(nueva_organizacion);
+        localStorage.setItem('ORGANIZACIONES', JSON.stringify(_ORG));
         alert("se creo correctamente la organizacion!")
-
     }
 }
-
-
-
